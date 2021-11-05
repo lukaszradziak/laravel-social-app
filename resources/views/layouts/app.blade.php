@@ -32,11 +32,17 @@
                     </div>
                 </header>
             @endif
+            
+            <div class="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
+                @if($leftMenu)
+                    @include('left-menu')
+                @endif
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                <!-- Page Content -->
+                <main class="lg:col-span-9 xl:col-span-10">
+                    {{ $slot }}
+                </main>
+            </div>
         </div>
 
         @stack('modals')
