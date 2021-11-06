@@ -39,7 +39,7 @@
                 @endif
 
                 <!-- Page Content -->
-                <main class="lg:col-span-9 xl:col-span-10">
+                <main class="lg:col-span-9 xl:col-span-10 @if($leftMenu) py-12 @endif">
                     {{ $slot }}
                 </main>
             </div>

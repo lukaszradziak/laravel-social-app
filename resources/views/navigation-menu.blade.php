@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('dashboard.index') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
@@ -133,14 +133,14 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            <x-jet-responsive-nav-link href="{{ route('dashboard.index') }}" :active="request()->routeIs('dashboard.index')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="#">
-                {{ __('Chat') }}
-            </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="#">
+            <x-jet-responsive-nav-link href="{{ route('dashboard.friends') }}" :active="request()->routeIs('dashboard.friends')">
                 {{ __('Friends') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('dashboard.chat') }}" :active="request()->routeIs('dashboard.chat')">
+                {{ __('Chat') }}
             </x-jet-responsive-nav-link>
         </div>
 
