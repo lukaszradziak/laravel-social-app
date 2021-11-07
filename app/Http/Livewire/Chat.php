@@ -2,57 +2,43 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Chat as ModelsChat;
+use App\Models\ChatMessage;
 use Livewire\Component;
 
 class Chat extends Component
 {
-    public $rooms = [
-        [
-           'user' => 'John Doe',
-           'message' => 'Hi there, How are you?',
-           'time' => '9:00',
-           'count' => 0,
-           'online' => true,
-        ],
-        [
-           'user' => 'Jessi Woo',
-           'message' => 'Working with you like dream!',
-           'time' => '8:50',
-           'count' => 5,
-           'online' => false,
-        ],
-        [
-           'user' => 'Amelia Nelson',
-           'message' => 'Hello mate! Great day',
-           'time' => '8:30',
-           'count' => 4,
-           'online' => false,
-        ]
-    ];
+    public $chats = [];
 
-    public $activeChat = [
-        'user' => 'John Doe',
-        'messages' => [
-           [
-              'message' => 'Hi there, How are you?',
-              'own' => false,
-           ],
-           [
-              'message' => 'Waiting for your reply. As I Have to go back soon. I have to travel long distance.',
-              'own' => false,
-           ],
-           [
-              'message' => 'Hi, I am coming there in few minutes. Please wait! I am in taxi right now.',
-              'own' => true
-           ],
-           [
-              'message' => 'Thank you very much, I am waiting here at StarBucks cafe.',
-              'own' => false,
-           ]
-        ]
-    ];
+    public $activeChat;
 
     public $message;
+
+    public $createModalOpen = false;
+    public $createUserId;
+
+    public function setActiveChat($id){
+        $this->activeChat = ModelsChat::where('id', $id)
+            ->own()
+            ->first();
+        
+        $this->dispatchBrowserEvent('scroll-chat');
+    }
+
+    public function create(){
+        $this->validate([
+            'createUserId' => 'required|exists:users,id'
+        ]);
+
+        $chat = ModelsChat::create();
+        $chat->users()->attach([
+            auth()->user()->id, 
+            $this->createUserId
+        ]);
+
+        $this->createUserId = null;
+        $this->createModalOpen = false;
+    }
 
     protected function rules()
     {
@@ -65,16 +51,25 @@ class Chat extends Component
     {
         $this->validate();
         
-        $this->activeChat['messages'][] = [
-            'message' => $this->message,
-            'own' => true
-        ];
+        $this->activeChat->messages()->saveMany([
+            new ChatMessage([
+                'user_id' => auth()->user()->id,
+                'message' => $this->message
+            ])
+        ]);
+
+        $this->activeChat->refresh();
+
         $this->message = '';
-        $this->dispatchBrowserEvent('new-message');
+        $this->dispatchBrowserEvent('scroll-chat');
     }
 
     public function render()
     {
+        $this->chats = ModelsChat::latest()
+            ->own()
+            ->get();
+
         return view('livewire.chat');
     }
 }
