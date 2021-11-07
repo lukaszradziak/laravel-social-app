@@ -2,71 +2,54 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Chat as ModelsChat;
-use App\Models\ChatMessage;
 use Livewire\Component;
 
 class Chat extends Component
 {
+    public $activeChat;
     public $chats = [];
 
-    public $activeChat;
+    public $modalOpen = false;
 
+    public $userId;
     public $message;
 
-    public $createModalOpen = false;
-    public $createUserId;
+    protected $rules = [
+        'userId' => 'required|exists:users,id',
+        'message' => 'required'
+    ];
 
-    public function setActiveChat($id){
-        $this->activeChat = ModelsChat::where('id', $id)
+    public function setActiveChat($id)
+    {
+        $this->activeChat = \App\Models\Chat::where('id', $id)
             ->own()
             ->first();
         
         $this->dispatchBrowserEvent('scroll-chat');
     }
 
-    public function create(){
-        $this->validate([
-            'createUserId' => 'required|exists:users,id'
-        ]);
-
-        $chat = ModelsChat::create();
-        $chat->users()->attach([
-            auth()->user()->id, 
-            $this->createUserId
-        ]);
-
-        $this->createUserId = null;
-        $this->createModalOpen = false;
-    }
-
-    protected function rules()
-    {
-        return [
-            'message' => 'required',
-        ];
-    }
-
-    public function sendMessage()
+    public function submit()
     {
         $this->validate();
-        
-        $this->activeChat->messages()->saveMany([
-            new ChatMessage([
+
+        $chat = \App\Models\Chat::create();
+        $chat->users()->attach([auth()->user()->id, $this->userId]);
+        $chat->messages()->saveMany([
+            new \App\Models\ChatMessage([
                 'user_id' => auth()->user()->id,
                 'message' => $this->message
             ])
         ]);
 
-        $this->activeChat->refresh();
-
+        $this->userId = null;
         $this->message = '';
-        $this->dispatchBrowserEvent('scroll-chat');
+        $this->modalOpen = false;
+        $this->activeChat = $chat;
     }
 
     public function render()
     {
-        $this->chats = ModelsChat::latest()
+        $this->chats = \App\Models\Chat::latest()
             ->own()
             ->get();
 
