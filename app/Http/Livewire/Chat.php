@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Rules\ChatUnique;
 use Livewire\Component;
 
 class Chat extends Component
@@ -14,10 +15,18 @@ class Chat extends Component
     public $userId;
     public $message;
 
-    protected $rules = [
-        'userId' => 'required|exists:users,id',
-        'message' => 'required'
-    ];
+    protected function rules()
+    {
+        return [
+            'userId' => [
+                'required',
+                'exists:users,id',
+                'not_in:'.auth()->user()->id,
+                new ChatUnique($this->userId),
+            ],
+            'message' => 'required'
+        ];
+    }
 
     public function setActiveChat($id)
     {
@@ -49,8 +58,8 @@ class Chat extends Component
 
     public function render()
     {
-        $this->chats = \App\Models\Chat::latest()
-            ->own()
+        $this->chats = \App\Models\Chat::own()
+            ->orderBy('updated_at', 'desc')
             ->get();
 
         return view('livewire.chat');

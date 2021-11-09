@@ -18,4 +18,9 @@ class ChatMessage extends Model
     {
         return $this->user_id === auth()->user()->id;
     }
+
+    public function scopeLimited($query)
+    {
+        return $query->latest()->take(50)->get()->reverse();
+    }
 }

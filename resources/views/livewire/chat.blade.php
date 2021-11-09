@@ -12,29 +12,28 @@
             </div>
         </div>
 
-        <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8 h-96 overflow-y-auto">
+        <div class="bg-white px-5 py-3 h-96 overflow-y-auto">
             @foreach($chats as $chat) 
-                <a 
+                <button 
                     wire:click="setActiveChat({{ $chat->id }})"
-                    href="#" 
-                    class="relative -m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 transition ease-in-out duration-150 @if($activeChat && $chat->id === $activeChat->id) bg-gray-100 @endif"
+                    class="relative w-full text-left mb-3 p-3 flex items-start rounded-lg hover:bg-gray-50 transition ease-in-out duration-150 @if($activeChat && $chat->id === $activeChat->id) bg-gray-100 @endif"
                 >
                     <img 
                         class="block h-14 w-14 rounded-full"
-                        src="https://ui-avatars.com/api/?name={{ $chat->user()->name }}&color=7F9CF5&background=EBF4FF"
+                        src="https://ui-avatars.com/api/?name={{ $chat->user()?->name ?? '-' }}&color=7F9CF5&background=EBF4FF"
                     >
                     <svg viewBox="0 0 120 120" class="absolute w-4 h-4 left-14 top-14" style="margin: -3px">
-                        <circle cx="50" cy="50" r="45" fill="@if(true) green @else silver @endif" stroke="#fff" stroke-width="10" />
+                        <circle cx="50" cy="50" r="45" fill="silver" stroke="#fff" stroke-width="10" />
                     </svg>
                     <div class="ml-4">
                         <p class="text-base font-medium text-gray-900">
-                            {{ $chat->user()->name }}
+                            {{ $chat->user()?->name ?? '-' }}
                         </p>
                         <p class="mt-1 text-sm text-gray-500">
                             {{ $chat->messages->last()->message ?? '' }}
                         </p>
                     </div>
-                </a>
+                </button>
             @endforeach
         </div>
 

@@ -4,3 +4,5 @@
 
 -   Laravel
 -   Jetstream
+-   Echo/Pusher
+-   Realtime Chat

@@ -19,10 +19,11 @@ class Chat extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function scopeOwn($query)
+    public function scopeOwn($query, $user = null)
     {
-        return $query->whereHas('users', function($query){
-            $query->where('id', auth()->user()->id);
+        $user = $user ? $user : auth()->user();
+        return $query->whereHas('users', function($query) use ($user){
+            $query->where('id', $user->id);
         });
     }
 
