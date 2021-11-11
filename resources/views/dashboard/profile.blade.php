@@ -28,14 +28,12 @@
           </div>
         </div>
 
-        <form>
-          <button 
-            type="submit" 
-            class="mt-8 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            {{ __('Add to friends') }}
-          </button>
-        </form>
+        <a 
+          href="{{ route('dashboard.friends-request', ['user' => $user->id]) }}" 
+          class="mt-8 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+            {{ __('Friends request') }}
+        </a>
 
         <a 
           href="#" 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\FriendsRequest;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -25,5 +26,19 @@ class DashboardController extends Controller
     public function profile(User $user)
     {
         return view('dashboard.profile', compact('user'));
+    }
+
+    public function notifications(Request $request)
+    {   
+        $notifications = $request->user()->notifications()->simplePaginate(20);
+        $request->user()->unreadNotifications->markAsRead();
+        
+        return view('dashboard.notifications', compact('notifications'));
+    }
+
+    public function friendsRequest(User $user)
+    {
+        $user->notify(new FriendsRequest());
+        return redirect()->back();
     }
 }
