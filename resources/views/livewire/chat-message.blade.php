@@ -3,11 +3,11 @@
         <div class="flow-root">
             <a href="{{ route('dashboard.profile', ['user' => $chat->user()?->id ?? 0]) }}" class="relative -m-3 p-3 flex items-center rounded-md text-base font-medium text-gray-900 hover:bg-gray-100 transition ease-in-out duration-150">
                 <img 
-                class="block h-6 w-6 rounded-full"
-                src="https://ui-avatars.com/api/?name={{ $chat->user()?->name ?? '-' }}&color=7F9CF5&background=EBF4FF"
+                    class="block h-6 w-6 rounded-full"
+                    src="{{ $chat->user()?->profile_photo_url }}"
                 >
                 <svg viewBox="0 0 120 120" class="absolute w-4 h-4 left-8 top-8" style="margin: -5px">
-                    <circle cx="50" cy="50" r="45" fill="silver" stroke="#fff" stroke-width="10" />
+                    <circle cx="50" cy="50" r="45" class="userStatus{{ $chat->user()?->id }}" fill="@if($chat->user()?->is_online) green @else silver @endif" stroke="#fff" stroke-width="10" />
                 </svg>
                 <span class="ml-3">{{ $chat->user()?->name ?? '-' }}</span>
             </a>

@@ -92,6 +92,7 @@ services:
         image: "quay.io/soketi/pws:latest-16-alpine"
         environment:
             DEBUG: "1"
+            DEFAULT_APP_WEBHOOKS: '[{"url": "http://laravel.test/websocket-hooks", "event_types": ["client_event", "channel_occupied", "channel_vacated", "member_added", "member_removed"]}]'
         ports:
             - "${PWS_PORT:-6001}:6001"
         networks:

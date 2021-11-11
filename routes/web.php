@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\WebSocketController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,4 +21,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
         
     });
     
+});
+
+Route::middleware(['pusher.webhook'])->group(function(){
+    Route::post('/websocket-hooks', [WebsocketController::class, 'hooks']);
 });

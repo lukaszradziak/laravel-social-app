@@ -30,3 +30,15 @@ window.Echo = new Echo({
     disableStats: true,
     enabledTransports: ["ws", "wss"],
 });
+
+window.Echo.channel(`user`).listen("UserStatus", (e) => {
+    [...document.querySelectorAll(`.userStatus${e.userId}`)].forEach(
+        (element) => {
+            if (e.status) {
+                element.setAttribute("fill", "green");
+            } else {
+                element.setAttribute("fill", "silver");
+            }
+        }
+    );
+});

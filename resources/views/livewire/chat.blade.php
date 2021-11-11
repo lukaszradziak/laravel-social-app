@@ -20,10 +20,10 @@
                 >
                     <img 
                         class="block h-14 w-14 rounded-full"
-                        src="https://ui-avatars.com/api/?name={{ $chat->user()?->name ?? '-' }}&color=7F9CF5&background=EBF4FF"
+                        src="{{ $chat->user()?->profile_photo_url }}"
                     >
                     <svg viewBox="0 0 120 120" class="absolute w-4 h-4 left-14 top-14" style="margin: -3px">
-                        <circle cx="50" cy="50" r="45" fill="silver" stroke="#fff" stroke-width="10" />
+                        <circle cx="50" cy="50" r="45" class="userStatus{{ $chat->user()?->id }}" fill="@if($chat->user()?->is_online) green @else silver @endif" stroke="#fff" stroke-width="10" />
                     </svg>
                     <div class="ml-4">
                         <p class="text-base font-medium text-gray-900">

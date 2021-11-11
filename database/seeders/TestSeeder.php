@@ -27,6 +27,12 @@ class TestSeeder extends Seeder
             'password' => Hash::make('admin')
         ]);
 
+        DB::table('users')->insert([
+            'name' => 'Test',
+            'email' => 'test@test',
+            'password' => Hash::make('test')
+        ]);
+
         User::factory(100)->create();
     }
 }

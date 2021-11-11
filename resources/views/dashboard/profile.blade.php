@@ -5,8 +5,11 @@
     <div class="lg:grid lg:grid-cols-12 lg:auto-rows-min lg:gap-x-8">
       <div class="lg:col-start-8 lg:col-span-5">
         <div class="flex justify-between">
-          <h1 class="text-xl font-medium text-gray-900">
-            {{ $user->name }}
+          <h1 class="flex items-center text-xl font-medium text-gray-900">
+            <svg viewBox="0 0 120 120" class="w-4 h-4">
+                <circle cx="50" cy="50" r="45" class="userStatus{{ $user->id }}" fill="@if($user->is_online) green @else silver @endif" stroke="#fff" stroke-width="10" />
+            </svg>
+            <span>{{ $user->name }}</span>
           </h1>
         </div>
        
