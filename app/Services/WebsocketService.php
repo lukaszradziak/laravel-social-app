@@ -49,7 +49,7 @@ class WebsocketService
 
 				$user->update(['is_online_queue_id' => null]);
 				$queueId = app(\Illuminate\Contracts\Bus\Dispatcher::class)
-					->dispatch((new SetOffline($user))->delay(now()->addSeconds(5)));
+					->dispatch((new SetOffline($user))->delay(now()->addSeconds(3)));
 				$user->update(['is_online_queue_id' => $queueId]);
 
 			}
