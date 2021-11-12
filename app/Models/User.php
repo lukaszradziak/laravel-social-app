@@ -30,6 +30,7 @@ class User extends Authenticatable
         
         'is_online',
         'is_online_queue_id',
+        'active_chat_id',
     ];
 
     /**

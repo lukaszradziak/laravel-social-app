@@ -18,7 +18,13 @@ class ChatMessage extends Component
     {
         return [
             "echo-private:chat.{$this->chat->id},Chat\NewMessage" => 'newMessage',
+            "echo-presence:chat.{$this->chat->id},here" => "here",
         ];
+    }
+
+    public function here()
+    {
+
     }
 
     public function newMessage()
@@ -41,6 +47,23 @@ class ChatMessage extends Component
         $this->chat->touch();
 
         broadcast(new NewMessage($this->chat->id))->toOthers();
+
+        foreach($this->chat->users as $user){
+            if(!$user->is_online){
+                continue;
+            }
+
+            if($user->id === auth()->user()->id){
+                continue;
+            }
+            
+            if($user->active_chat_id === $this->chat->id){
+                continue;
+            }
+
+            $user->notify(new \App\Notifications\Chat\NewMessage(auth()->user(), $this->chat));
+        }
+
 
         $this->message = '';
         $this->dispatchBrowserEvent('scroll-chat');

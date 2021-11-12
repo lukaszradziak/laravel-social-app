@@ -37,17 +37,36 @@ class WebsocketService
 
 		if($name === 'private-App.Models.User'){
 			$user = User::find($id);
+
 			if($event['name'] === 'channel_occupied'){
+
 				$user->update(['is_online_queue_id' => null]);
 				if(!$user->is_online){
 					dispatch(new SetOnline($user));
 				}
+
 			} else if($event['name'] === 'channel_vacated'){
+
 				$user->update(['is_online_queue_id' => null]);
 				$queueId = app(\Illuminate\Contracts\Bus\Dispatcher::class)
 					->dispatch((new SetOffline($user))->delay(now()->addSeconds(5)));
 				$user->update(['is_online_queue_id' => $queueId]);
+
 			}
+
+		} else if($name === 'presence-chat'){
+			$user = User::find($event['user_id']);
+
+			if($event['name'] === 'member_added'){
+
+				$user->update(['active_chat_id' => $id]);
+
+			} else if($event['name'] === 'member_removed'){
+
+				$user->update(['active_chat_id' => null]);
+				
+			}
+
 		}
 	}
 

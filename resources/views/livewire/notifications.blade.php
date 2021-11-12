@@ -19,16 +19,16 @@
                 class="max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5 hover:bg-gray-50"
             >
             <div class="w-0 flex-1 p-4">
-                <a href="{{ route('dashboard.notifications') }}" class="flex items-start">
+                <a href="{{ $notification['url'] ?? route('dashboard.notifications') }}" class="flex items-start">
                     <div class="flex-shrink-0 pt-0.5">
-                        <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name=Notification&color=7F9CF5&background=EBF4FF" alt="">
+                        <img class="h-10 w-10 rounded-full" src="{{ $notification['user_photo'] ?? 'https://ui-avatars.com/api/?name=Notification&color=7F9CF5&background=EBF4FF' }}" alt="">
                     </div>
                     <div class="ml-3 w-0 flex-1">
                         <p class="text-sm font-medium text-gray-900">
-                            Notification
+                            {{ $notification['user_name'] ?? __('Notification') }}
                         </p>
                         <p class="mt-1 text-sm text-gray-500">
-                            {{ $notification['type'] }}
+                            {{ $notification['title'] ?? $notification['type'] }}
                         </p>
                     </div>
                 </a>

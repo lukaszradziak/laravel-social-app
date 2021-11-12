@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Rules\ChatUnique;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class Chat extends Component
@@ -56,11 +57,15 @@ class Chat extends Component
         $this->activeChat = $chat;
     }
 
-    public function render()
+    public function render(Request $request)
     {
         $this->chats = \App\Models\Chat::own()
             ->orderBy('updated_at', 'desc')
             ->get();
+
+        if($request->get('chat_id')){
+            $this->setActiveChat($request->get('chat_id'));
+        }
 
         return view('livewire.chat');
     }
