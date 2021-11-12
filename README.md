@@ -6,5 +6,5 @@
 -   Jetstream
 -   Echo/Pusher
 -   Realtime Chat
--   Realtime User Status (Online/Offline)
+-   Realtime User Status (Online/Offline) with delay 5s
 -   Realtime Notifications

@@ -29,6 +29,7 @@ class User extends Authenticatable
         'password',
         
         'is_online',
+        'is_online_queue_id',
     ];
 
     /**

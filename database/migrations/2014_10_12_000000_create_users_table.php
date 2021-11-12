@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
 
             $table->boolean('is_online')->default(0);
+            $table->string('is_online_queue_id')->nullable();
 
             $table->timestamps();
         });
