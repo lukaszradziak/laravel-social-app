@@ -14,7 +14,7 @@ class ChatMessageFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'message' => $this->faker->sentence(),
         ];
     }
 }

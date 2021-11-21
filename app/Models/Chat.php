@@ -22,7 +22,7 @@ class Chat extends Model
     public function scopeOwn($query, $user = null)
     {
         $user = $user ? $user : auth()->user();
-        return $query->whereHas('users', function($query) use ($user){
+        return $query->whereHas('users', function ($query) use ($user) {
             $query->where('id', $user->id);
         });
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -40,7 +41,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        
+
         'is_online',
         'is_online_queue_id',
         'active_chat_id',
@@ -75,4 +76,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * List of chats
+     * 
+     * @return BelongsToMany 
+     */
+    public function chats()
+    {
+        return $this->belongsToMany(Chat::class);
+    }
 }
