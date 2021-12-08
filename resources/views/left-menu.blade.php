@@ -1,5 +1,5 @@
-<div class="hidden lg:block lg:col-span-3 xl:col-span-2 py-12">
-  <nav aria-label="Sidebar" class="sticky top-4 divide-y divide-gray-300">
+<div class="hidden lg:block lg:col-span-3 xl:col-span-2 py-12 pt-20">
+  <nav aria-label="Sidebar" class="sticky top-20 divide-y divide-gray-300">
     <div class="pb-8 space-y-1">
       
       <a href="{{ route('dashboard.index') }}" class="@if(request()->routeIs('dashboard.index')) bg-gray-200 text-gray-900 @endif text-gray-600 hover:bg-gray-50  group flex items-center px-3 py-2 text-sm font-medium rounded-md" aria-current="page">

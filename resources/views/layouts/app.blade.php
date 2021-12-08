@@ -39,7 +39,7 @@
                 @endif
 
                 <!-- Page Content -->
-                <main class="lg:col-span-9 xl:col-span-10 @if($leftMenu) py-12 @endif">
+                <main class="lg:col-span-9 xl:col-span-10 @if($leftMenu) py-12 @endif pt-20">
                     @if(session('success'))
                         <div 
                             x-data="{ show: true }"

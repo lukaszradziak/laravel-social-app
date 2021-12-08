@@ -28,5 +28,10 @@ task('build', function () {
 });
 after('artisan:optimize', 'build');
 
+task('queue:restart', function () {
+    run('cd {{release_path}} && php artisan queue:restart');
+});
+after('deploy:symlink', 'queue:restart');
+
 after('deploy:failed', 'deploy:unlock');
 before('deploy:symlink', 'artisan:migrate');
