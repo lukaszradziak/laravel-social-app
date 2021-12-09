@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Chat;
 use App\Models\ChatMessage;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Factories\Sequence;
@@ -59,6 +60,12 @@ class DatabaseSeeder extends Seeder
                                 ])
                         );
                     })
+            );
+
+            $user->posts()->saveMany(
+                Post::factory()
+                    ->count(5)
+                    ->create()
             );
         });
     }
