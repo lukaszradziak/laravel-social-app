@@ -171,7 +171,7 @@
                 @else
                     <a
                         href="{{ route('dashboard.index') }}"
-                        class="text-gray-900 rounded-l-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
+                        class="text-gray-900 @if ($tab) text-gray-500 @endif rounded-l-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
                         aria-current="page"
                     >
                         <span>{{ __('Latest') }}</span>
@@ -183,12 +183,12 @@
 
                     <a
                         href="{{ route('dashboard.index', ['tab' => 'top']) }}"
-                        class="text-gray-500 hover:text-gray-700 group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
+                        class="text-gray-900 @if ($tab !== 'top') text-gray-500 @endif rounded-r-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
                     >
                         <span>{{ __('Top') }}</span>
                         <span
                             aria-hidden="true"
-                            class=" @if ($tab === 'top') bg-indigo-500 @endif  absolute inset-x-0 bottom-0 h-0.5"
+                            class="@if ($tab === 'top') bg-indigo-500 @endif  absolute inset-x-0 bottom-0 h-0.5"
                         ></span>
                     </a>
                 @endif
@@ -197,7 +197,7 @@
     </div>
 
     @foreach ($posts as $post)
-        <div class="bg-white shadow overflow-hidden sm:rounded-md mb-4">
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-4">
             <a
                 href="{{ route('dashboard.profile', ['user' => $post->user?->id]) }}"
                 class="block hover:bg-gray-50"
