@@ -68,7 +68,7 @@ class Posts extends Component
                     $query->withCount('likers')->orderBy('likers_count', 'desc');
                 }
             })
-            ->orderBy('id', 'desc')
+            ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 
         return view('livewire.posts', [

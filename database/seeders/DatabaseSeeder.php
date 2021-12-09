@@ -68,5 +68,11 @@ class DatabaseSeeder extends Seeder
                     ->create()
             );
         });
+
+        foreach (Post::get() as $post) {
+            for ($i = 0; $i < rand(0, 10); $i++) {
+                User::find($usersId->random())->like($post);
+            }
+        }
     }
 }
