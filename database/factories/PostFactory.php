@@ -13,8 +13,13 @@ class PostFactory extends Factory
      */
     public function definition()
     {
+        $hashtags = ' ';
+        for ($i = 0; $i < rand(0, 5); $i++) {
+            $hashtags .= '#' . $this->faker->word() . ' ';
+        }
+
         return [
-            'content' => $this->faker->paragraph(),
+            'content' => $this->faker->paragraph() . $hashtags,
             'created_at' => $this->faker->dateTimeBetween('-1 week', '+0 week')
         ];
     }

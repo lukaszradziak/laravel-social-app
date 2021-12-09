@@ -102,27 +102,6 @@
                                     type="submit"
                                     class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                 >
-                                    <svg
-                                        wire:loading
-                                        class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <circle
-                                            class="opacity-25"
-                                            cx="12"
-                                            cy="12"
-                                            r="10"
-                                            stroke="currentColor"
-                                            stroke-width="4"
-                                        ></circle>
-                                        <path
-                                            class="opacity-75"
-                                            fill="currentColor"
-                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                        ></path>
-                                    </svg>
                                     Post
                                 </button>
                             </div>
@@ -140,7 +119,7 @@
     </div>
 
     <div class="mb-4">
-        <div class="sm:hidden">
+        {{-- <div class="sm:hidden">
             <label
                 for="tabs"
                 class="sr-only"
@@ -159,51 +138,60 @@
 
                 <option>Most views</option>
             </select>
-        </div>
+        </div> --}}
+
         <div class="hidden sm:block">
             <nav
                 class="relative z-0 rounded-lg shadow flex divide-x divide-gray-200"
                 aria-label="Tabs"
             >
-                <!-- Current: "text-gray-900", Default: "text-gray-500 hover:text-gray-700" -->
-                <a
-                    href="#"
-                    class="text-gray-900 rounded-l-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
-                    aria-current="page"
-                >
-                    <span>{{ __('Latest') }}</span>
-                    <span
-                        aria-hidden="true"
-                        class="bg-indigo-500 absolute inset-x-0 bottom-0 h-0.5"
-                    ></span>
-                </a>
+                @if ($hashtag)
+                    <a
+                        href="{{ route('dashboard.index', ['hashtag' => $hashtag]) }}"
+                        class="text-gray-900 rounded-l-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
+                        aria-current="page"
+                    >
+                        <span>#{{ $hashtag }}</span>
+                        <span
+                            aria-hidden="true"
+                            class="bg-indigo-500 absolute inset-x-0 bottom-0 h-0.5"
+                        ></span>
+                    </a>
+                    <a
+                        href="{{ route('dashboard.index') }}"
+                        class="text-gray-500 hover:text-gray-700 group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
+                    >
 
-                <a
-                    class="text-gray-500 hover:text-gray-700 group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10">
-                    <span>{{ __('Friends') }}</span>
-                    <span
-                        aria-hidden="true"
-                        class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"
-                    ></span>
-                </a>
+                        <span>{{ __('Back to all posts') }}</span>
+                        <span
+                            aria-hidden="true"
+                            class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"
+                        ></span>
+                    </a>
+                @else
+                    <a
+                        href="{{ route('dashboard.index') }}"
+                        class="text-gray-900 rounded-l-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
+                        aria-current="page"
+                    >
+                        <span>{{ __('Latest') }}</span>
+                        <span
+                            aria-hidden="true"
+                            class="@if (!$tab) bg-indigo-500 @endif absolute inset-x-0 bottom-0 h-0.5"
+                        ></span>
+                    </a>
 
-                <a
-                    class="text-gray-500 hover:text-gray-700 group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10">
-                    <span>{{ __('Top') }}</span>
-                    <span
-                        aria-hidden="true"
-                        class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"
-                    ></span>
-                </a>
-
-                <a
-                    class="text-gray-500 rounded-r-lg  hover:text-gray-700 group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10">
-                    <span>{{ __('Most views') }}</span>
-                    <span
-                        aria-hidden="true"
-                        class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"
-                    ></span>
-                </a>
+                    <a
+                        href="{{ route('dashboard.index', ['tab' => 'top']) }}"
+                        class="text-gray-500 hover:text-gray-700 group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
+                    >
+                        <span>{{ __('Top') }}</span>
+                        <span
+                            aria-hidden="true"
+                            class=" @if ($tab === 'top') bg-indigo-500 @endif  absolute inset-x-0 bottom-0 h-0.5"
+                        ></span>
+                    </a>
+                @endif
             </nav>
         </div>
     </div>
@@ -253,7 +241,7 @@
                 </div>
             </a>
             <div class="flex items-center px-4 py-4 sm:px-6">
-                {{ $post->content }}
+                <x-post.content :post="$post" />
             </div>
             <div class="px-4 py-4 pt-0 sm:px-6">
                 <button
@@ -305,32 +293,6 @@
                 <div class="ml-3">
                     <h3 class="text-sm font-medium text-gray-800">
                         {{ __('Load more') }}...
-                    </h3>
-                </div>
-            </div>
-        </div>
-    @else
-        <div class="rounded-md bg-gray-200 p-4">
-            <div class="flex">
-                <div class="flex-shrink-0">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5 text-gray-600"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12"
-                        />
-                    </svg>
-                </div>
-                <div class="ml-3">
-                    <h3 class="text-sm font-medium text-gray-800">
-                        {{ __('Empty') }}
                     </h3>
                 </div>
             </div>

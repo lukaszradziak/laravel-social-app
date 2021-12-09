@@ -14,6 +14,9 @@ class Posts extends Component
     public $perPage = 10;
     public $content;
 
+    public $tab;
+    public $hashtag;
+
     protected $listeners = ['loadMore' => 'loadMore'];
 
     protected $rules = [
@@ -42,10 +45,34 @@ class Posts extends Component
         $this->perPage += 10;
     }
 
+    public function mount(Request $request)
+    {
+        if ($request->get('hashtag')) {
+            $this->hashtag = $request->get('hashtag');
+        }
+
+        if ($request->get('tab')) {
+            $this->tab = $request->get('tab');
+        }
+    }
+
     public function render()
     {
+        $posts = Post::when($this->hashtag, function ($query) {
+            $query->whereHas('hashtags', function ($query) {
+                $query->where('name', $this->hashtag);
+            });
+        })
+            ->when($this->tab, function ($query) {
+                if ($this->tab === 'top') {
+                    $query->withCount('likers')->orderBy('likers_count', 'desc');
+                }
+            })
+            ->orderBy('id', 'desc')
+            ->paginate($this->perPage);
+
         return view('livewire.posts', [
-            'posts' => Post::latest()->paginate($this->perPage)
+            'posts' => $posts
         ]);
     }
 }
