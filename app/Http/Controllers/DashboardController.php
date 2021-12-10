@@ -13,12 +13,9 @@ class DashboardController extends Controller
         return view('dashboard.index');
     }
 
-    public function friends(Request $request)
+    public function friends()
     {
-        $friends = $request->user()->getAcceptedFriendships();
-        $pendingFriends = $request->user()->getPendingFriendships();
-
-        return view('dashboard.friends', compact('friends', 'pendingFriends'));
+        return view('dashboard.friends');
     }
 
     public function chat()
@@ -32,10 +29,10 @@ class DashboardController extends Controller
     }
 
     public function notifications(Request $request)
-    {   
+    {
         $notifications = $request->user()->notifications()->simplePaginate(20);
         $request->user()->unreadNotifications->markAsRead();
-        
+
         return view('dashboard.notifications', compact('notifications'));
     }
 

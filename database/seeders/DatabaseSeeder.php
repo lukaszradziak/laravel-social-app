@@ -39,6 +39,17 @@ class DatabaseSeeder extends Seeder
         $usersId = $users->pluck('id');
 
         $users->each(function ($user) use ($usersId) {
+            foreach ($usersId->random(5) as $id) {
+                $randomUser = User::find($id);
+                $user->befriend($randomUser);
+                $randomUser->acceptFriendRequest($user);
+            }
+
+            foreach ($usersId->random(5) as $id) {
+                $randomUser = User::find($id);
+                $user->befriend($randomUser);
+            }
+
             $user->chats()->saveMany(
                 Chat::factory()
                     ->count(10)
