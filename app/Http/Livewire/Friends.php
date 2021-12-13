@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
+use App\Notifications\User\FriendsAccept;
+use App\Notifications\User\FriendsRemove;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -20,7 +22,9 @@ class Friends extends Component
 
     public function deleteFriend()
     {
-        request()->user()->unfriend(User::find($this->deleteFriendId));
+        $user = User::findOrFail($this->deleteFriendId);
+        request()->user()->unfriend($user);
+        $user->notify(new FriendsRemove());
         $this->deleteFriendId = null;
     }
 
@@ -31,7 +35,9 @@ class Friends extends Component
 
     public function acceptFriend()
     {
-        request()->user()->acceptFriendRequest(User::find($this->acceptFriendId));
+        $user = User::findOrFail($this->acceptFriendId);
+        request()->user()->acceptFriendRequest($user);
+        $user->notify(new FriendsAccept());
         $this->acceptFriendId = null;
     }
 

@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\User;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class FriendsRequest extends Notification
 {
     use Queueable;
-
 
     /**
      * Create a new notification instance.
@@ -20,6 +18,7 @@ class FriendsRequest extends Notification
      */
     public function __construct()
     {
+        //
     }
 
     /**
