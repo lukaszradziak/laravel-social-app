@@ -1,5 +1,8 @@
 <div>
-    <div class="bg-white shadow sm:rounded-lg mb-4">
+    <div
+        class="bg-white shadow sm:rounded-lg mb-4"
+        wire:poll.visible.10000ms
+    >
         <div class="px-4 py-5 sm:p-6">
 
             <div class="flex items-start space-x-4">
