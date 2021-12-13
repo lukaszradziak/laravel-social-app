@@ -41,9 +41,7 @@
                                         <div class="flex items-center">
                                             <p class="text-sm text-gray-600">
                                                 <time
-                                                    datetime="{{ $notification->created_at }}"
-                                                    title="{{ $notification->created_at }}"
-                                                >{{ $notification->created_at->ago() }}</time>
+                                                    datetime="{{ $notification->created_at }}">{{ $notification->created_at->ago() }}</time>
                                             </p>
                                         </div>
                                     </div>
