@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Post;
+use App\Notifications\Post\Like;
 use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -37,6 +38,7 @@ class Posts extends Component
             $request->user()->unlike($post);
         } else {
             $request->user()->like($post);
+            $post->user->notify(new Like($post->user));
         }
     }
 

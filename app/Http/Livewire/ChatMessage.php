@@ -24,7 +24,6 @@ class ChatMessage extends Component
 
     public function here()
     {
-
     }
 
     public function newMessage()
@@ -36,7 +35,7 @@ class ChatMessage extends Component
     public function submit()
     {
         $this->validate();
-        
+
         $this->chat->messages()->saveMany([
             new \App\Models\ChatMessage([
                 'user_id' => auth()->user()->id,
@@ -48,20 +47,20 @@ class ChatMessage extends Component
 
         broadcast(new NewMessage($this->chat->id))->toOthers();
 
-        foreach($this->chat->users as $user){
-            if(!$user->is_online){
+        foreach ($this->chat->users as $user) {
+            if (!$user->is_online) {
                 continue;
             }
 
-            if($user->id === auth()->user()->id){
-                continue;
-            }
-            
-            if($user->active_chat_id === $this->chat->id){
+            if ($user->id === auth()->user()->id) {
                 continue;
             }
 
-            $user->notify(new \App\Notifications\Chat\NewMessage(auth()->user(), $this->chat));
+            if ($user->active_chat_id === $this->chat->id) {
+                continue;
+            }
+
+            $user->notify(new \App\Notifications\Chat\NewMessage($this->chat));
         }
 
 

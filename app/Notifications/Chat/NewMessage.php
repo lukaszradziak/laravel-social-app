@@ -11,17 +11,15 @@ class NewMessage extends Notification
 {
     use Queueable;
 
-    public $user;
-    public $chat;
+    private $chat;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($user, $chat)
+    public function __construct($chat)
     {
-        $this->user = $user;
         $this->chat = $chat;
     }
 
@@ -33,7 +31,7 @@ class NewMessage extends Notification
      */
     public function via($notifiable)
     {
-        return ['broadcast'];
+        return ['broadcast', 'database'];
     }
 
     /**
@@ -45,10 +43,8 @@ class NewMessage extends Notification
     public function toArray($notifiable)
     {
         return [
-            'user_name' => $this->user->name,
-            'user_photo' => $this->user->profile_photo_url,
-            'title' => __('New message'),
-            'url' => route('dashboard.chat', ['chat_id' => $this->chat->id])
+            'user_id' => auth()->user()->id,
+            'chat_id' => $this->chat->id
         ];
     }
 }
