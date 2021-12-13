@@ -25,8 +25,10 @@ class CreateUsersTable extends Migration
 
             $table->boolean('is_online')->default(0);
             $table->string('is_online_queue_id')->nullable();
-            
+
             $table->unsignedInteger('active_chat_id')->nullable();
+
+            $table->boolean('admin')->default(0);
 
             $table->timestamps();
         });

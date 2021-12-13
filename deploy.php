@@ -12,7 +12,7 @@ set('application', 'social');
 set('repository', 'git@github.com:lukaszradziak/laravel-social-app.git');
 set('git_tty', true);
 add('shared_files', []);
-add('shared_dirs', ['node_modules']);
+add('shared_dirs', ['node_modules', 'nova']);
 add('writable_dirs', []);
 set('allow_anonymous_stats', false);
 set('keep_releases', 5);

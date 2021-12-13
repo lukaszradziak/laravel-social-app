@@ -16,3 +16,11 @@
 -   Realtime User Status (Online/Offline) with delay 3s
 -   Realtime Notifications
 -   Notification when out of chat
+
+## 🚗 Install
+
+todo
+
+## 🚙 Install without Nova
+
+todo
