@@ -5347,9 +5347,13 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
 
-timeago_js__WEBPACK_IMPORTED_MODULE_1__.render(document.querySelectorAll("time"), "en_EN", {
-  minInterval: 5
-});
+var timeNodes = document.querySelectorAll("time");
+
+if (timeNodes.length) {
+  timeago_js__WEBPACK_IMPORTED_MODULE_1__.render(timeNodes, "en_EN", {
+    minInterval: 5
+  });
+}
 
 /***/ }),
 

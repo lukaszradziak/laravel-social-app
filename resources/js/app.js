@@ -7,7 +7,9 @@ window.Alpine = Alpine;
 Alpine.start();
 
 import * as timeago from "timeago.js";
-
-timeago.render(document.querySelectorAll("time"), "en_EN", {
-    minInterval: 5,
-});
+const timeNodes = document.querySelectorAll("time");
+if (timeNodes.length) {
+    timeago.render(timeNodes, "en_EN", {
+        minInterval: 5,
+    });
+}
