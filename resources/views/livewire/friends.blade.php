@@ -2,11 +2,11 @@
     @if ($friendRequests->count())
         <div class="bg-white shadow sm:rounded-lg mb-4">
 
-            <div class="border-b border-gray-200 px-4 py-5 sm:px-6">
+            <div class="border-b border-gray-200 bg-gray-50 px-4 py-5 sm:px-6">
                 {{ __('Requests') }}
             </div>
 
-            <div class="px-4px-4 py-5 sm:px-6">
+            <div class="px-4 py-5 sm:px-6">
                 <ul
                     role="list"
                     class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-12 sm:space-y-0 lg:gap-x-8"
@@ -14,16 +14,20 @@
                     @foreach ($friendRequests as $user)
                         <li>
                             <div class="flex items-center space-x-4 lg:space-x-6">
-                                <img
-                                    class="w-16 h-16 rounded-full lg:w-20 lg:h-20"
-                                    src="{{ $user->sender->profile_photo_url }}"
-                                    alt="{{ $user->sender->name }}"
-                                >
+                                <a href="{{ route('dashboard.profile', ['user' => $user->sender->id]) }}">
+                                    <img
+                                        class="w-16 h-16 rounded-full lg:w-20 lg:h-20"
+                                        src="{{ $user->sender->profile_photo_url }}"
+                                        alt="{{ $user->sender->name }}"
+                                    >
+                                </a>
                                 <div class="font-medium text-lg leading-6 space-y-1">
-                                    <h3>{{ $user->sender->name }}</h3>
+                                    <a href="{{ route('dashboard.profile', ['user' => $user->sender->id]) }}">
+                                        <h3>{{ $user->sender->name }}</h3>
+                                    </a>
                                     <button
                                         wire:click="modalAcceptFriend({{ $user->sender->id }})"
-                                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
+                                        class="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
                                     >
                                         {{ __('Accept') }}
                                     </button>
@@ -31,7 +35,6 @@
                             </div>
                         </li>
                     @endforeach
-                    <!-- More people... -->
                 </ul>
             </div>
         </div>
@@ -39,11 +42,11 @@
 
     <div class="bg-white shadow sm:rounded-lg">
 
-        <div class="border-b border-gray-200 px-4 py-5 sm:px-6">
+        <div class="border-b border-gray-200 bg-gray-50 px-4 py-5 sm:px-6">
             {{ __('Friends') }}
         </div>
 
-        <div class="px-4px-4 py-5 sm:px-6">
+        <div class="px-4 py-5 sm:px-6">
             @if ($friends->count())
 
                 <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 mb-4">
@@ -63,8 +66,22 @@
                             <div class="flex justify-between items-center mt-2">
                                 <a
                                     href="{{ route('dashboard.profile', ['user' => $user->id]) }}"
-                                    class="flex justify-center"
+                                    class="flex justify-center items-center"
                                 >
+                                    <svg
+                                        viewBox="0 0 120 120"
+                                        class="w-4 h-4"
+                                    >
+                                        <circle
+                                            cx="50"
+                                            cy="50"
+                                            r="45"
+                                            class="userStatus{{ $user->id }}"
+                                            fill="@if ($user->is_online) green @else silver @endif"
+                                            stroke="#fff"
+                                            stroke-width="10"
+                                        />
+                                    </svg>
                                     <p class="text-indigo-400">{{ $user->name }}</p>
                                 </a>
 
@@ -77,7 +94,7 @@
                                             href="{{ route('dashboard.chat') }}"
                                             class="text-gray-400 hover:text-gray-300"
                                         >
-                                            <span class="sr-only">Twitter</span>
+                                            <span class="sr-only">{{ __('Chat') }}</span>
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 class="h-6 w-6"
@@ -100,7 +117,7 @@
                                             wire:click="modalDeleteFriend({{ $user->id }})"
                                             class="text-gray-400 hover:text-gray-300"
                                         >
-                                            <span class="sr-only">LinkedIn</span>
+                                            <span class="sr-only">{{ __('Remove') }}</span>
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 class="h-6 w-6"

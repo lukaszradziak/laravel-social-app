@@ -1,6 +1,6 @@
 <x-app-layout leftMenu="true">
 
-    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-12">
+    <div class="bg-white overflow-hidden shadow sm:rounded-lg p-4">
 
         <div class="lg:grid lg:grid-cols-12 lg:auto-rows-min lg:gap-x-8">
             <div class="lg:col-start-8 lg:col-span-5">
@@ -48,33 +48,21 @@
                     </div>
                 </div>
 
-                <a
-                    href="{{ route('dashboard.friends-request', ['user' => $user->id]) }}"
-                    class="mt-8 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    {{ __('Friends request') }}
-                </a>
+                @if (!auth()->user()->isFriendWith($user))
+                    <a
+                        href="{{ route('dashboard.friends-request', ['user' => $user->id]) }}"
+                        class="mt-8 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                        {{ __('Friends request') }}
+                    </a>
+                @endif
 
                 <a
-                    href="#"
+                    href="{{ route('dashboard.chat') }}"
                     class="mt-8 w-full bg-gray-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                    {{ __('Send a message') }}
+                    {{ __('Chat') }}
                 </a>
-
-                <div class="mt-8 border-t border-gray-200 pt-8">
-                    <h2 class="text-sm font-medium text-gray-900">{{ __('Details') }}</h2>
-
-                    <div class="mt-4 prose prose-sm text-gray-500">
-                        <ul role="list">
-
-                            <li>Pet lover</li>
-                            <li>Vegan</li>
-                            <li>Sport fan</li>
-
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
 
