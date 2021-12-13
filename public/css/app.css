@@ -1373,6 +1373,24 @@ select {
 .top-14 {
 	top: 3.5rem;
 }
+.left-12 {
+	left: 3rem;
+}
+.top-12 {
+	top: 3rem;
+}
+.left-11 {
+	left: 2.75rem;
+}
+.top-11 {
+	top: 2.75rem;
+}
+.left-10 {
+	left: 2.5rem;
+}
+.top-10 {
+	top: 2.5rem;
+}
 .z-0 {
 	z-index: 0;
 }
@@ -1617,6 +1635,9 @@ select {
 .h-14 {
 	height: 3.5rem;
 }
+.h-3 {
+	height: 0.75rem;
+}
 .max-h-56 {
 	max-height: 14rem;
 }
@@ -1670,6 +1691,9 @@ select {
 }
 .w-14 {
 	width: 3.5rem;
+}
+.w-3 {
+	width: 0.75rem;
 }
 .min-w-0 {
 	min-width: 0px;

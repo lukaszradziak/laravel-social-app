@@ -181,16 +181,33 @@
             >
                 <div class="flex items-center px-4 py-4 sm:px-6">
                     <div class="min-w-0 flex-1 flex items-center">
-                        <div class="flex-shrink-0">
+                        <div class="flex-shrink-0 relative">
                             <img
                                 class="h-12 w-12 rounded-full"
                                 src="{{ $post->user?->profile_photo_url }}"
                                 alt="{{ $post->user?->name }}"
                             >
+                            <svg
+                                viewBox="0 0 120 120"
+                                class="absolute w-4 h-4 left-10 top-10"
+                                style="margin: -5px"
+                            >
+                                <circle
+                                    cx="50"
+                                    cy="50"
+                                    r="45"
+                                    class="userStatus{{ $post->user?->id }}"
+                                    fill="@if ($post->user?->is_online) green @else silver @endif"
+                                    stroke="#fff"
+                                    stroke-width="10"
+                                />
+                            </svg>
                         </div>
                         <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
                             <div>
-                                <p class="text-sm font-medium text-indigo-600 truncate">{{ $post->user?->name }}</p>
+                                <p class="text-sm font-medium text-indigo-600 truncate flex items-center">
+                                    {{ $post->user?->name }}
+                                </p>
                                 <p class="mt-2 flex items-center text-sm text-gray-500">
                                     <span class="truncate">
                                         <time
