@@ -5385,26 +5385,29 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
  */
 
 
-window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
-window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
-  broadcaster: "pusher",
-  key: "app-key",
-  wsHost: "127.0.0.1",
-  wsPort: "6001",
-  forceTLS: false,
-  encrypted: true,
-  disableStats: true,
-  enabledTransports: ["ws", "wss"]
-});
-window.Echo.channel("user").listen("UserStatus", function (e) {
-  _toConsumableArray(document.querySelectorAll(".userStatus".concat(e.userId))).forEach(function (element) {
-    if (e.status) {
-      element.setAttribute("fill", "green");
-    } else {
-      element.setAttribute("fill", "silver");
-    }
+
+if (document.querySelector(".app-layout")) {
+  window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
+  window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
+    broadcaster: "pusher",
+    key: "app-key",
+    wsHost: "127.0.0.1",
+    wsPort: "6001",
+    forceTLS: false,
+    encrypted: true,
+    disableStats: true,
+    enabledTransports: ["ws", "wss"]
   });
-});
+  window.Echo.channel("user").listen("UserStatus", function (e) {
+    _toConsumableArray(document.querySelectorAll(".userStatus".concat(e.userId))).forEach(function (element) {
+      if (e.status) {
+        element.setAttribute("fill", "green");
+      } else {
+        element.setAttribute("fill", "silver");
+      }
+    });
+  });
+}
 
 /***/ }),
 
