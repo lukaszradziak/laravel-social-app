@@ -8,7 +8,7 @@
         content="width=device-width, initial-scale=1"
     >
 
-    <title>Laravel</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Fonts -->
     <link
