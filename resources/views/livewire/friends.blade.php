@@ -91,7 +91,7 @@
                                 >
                                     <li>
                                         <a
-                                            href="{{ route('dashboard.chat') }}"
+                                            href="{{ route('dashboard.chat', ['userId' => $user->id]) }}"
                                             class="text-gray-400 hover:text-gray-300"
                                         >
                                             <span class="sr-only">{{ __('Chat') }}</span>

@@ -104,13 +104,15 @@
                                 {{ __('Create message') }}
                             </h3>
                             <div class="mt-2">
-                                <input
-                                    type="text"
+                                <select
                                     wire:model="userId"
                                     class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 px-4 rounded"
-                                    placeholder="User ID"
-                                    autocomplete="off"
                                 >
+                                    <option value="">{{ __('Select User') }}</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
                                 @error('userId')
                                     <p class="text-red-500">
                                         {{ $message }}
