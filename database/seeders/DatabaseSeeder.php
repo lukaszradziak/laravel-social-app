@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Chat;
 use App\Models\ChatMessage;
+use App\Models\Item;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -85,5 +86,7 @@ class DatabaseSeeder extends Seeder
                 User::find($usersId->random())->like($post);
             }
         }
+
+        Item::factory()->count(8)->create();
     }
 }

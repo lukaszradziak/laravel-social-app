@@ -23,6 +23,11 @@ class DashboardController extends Controller
         return view('dashboard.chat');
     }
 
+    public function premium()
+    {
+        return view('dashboard.premium');
+    }
+
     public function profile(User $user)
     {
         return view('dashboard.profile', compact('user'));
