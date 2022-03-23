@@ -18,20 +18,23 @@ set('allow_anonymous_stats', false);
 set('keep_releases', 5);
 set('ssh_multiplexing', true);
 
-host($_SERVER['SECRET_HOST'])
-    ->user($_SERVER['SECRET_USER'])
-    ->port($_SERVER['SECRET_PORT'])
-    ->set('deploy_path', '~/{{application}}');
+host('host343376.hostido.net.pl')
+  ->user('host343376')
+  ->set('http_user', 'host343376')
+  ->set('writable_mode', 'chmod')
+  ->port(64321)
+  ->set('deploy_path', '~/domains/social.lukaszradziak.pl/app')
+  ->set('bin/php', function () {
+    return 'php8.0';
+  })
+  ->set('bin/composer', function () {
+    return 'php8.0 /usr/local/bin/composer';
+  });
 
 task('build', function () {
-    run('export PATH=~/.nvm/versions/node/v17.1.0/bin:$PATH && cd {{release_path}} && npm i && npm run prod');
+    run('cd {{release_path}} && npm i && npm run prod');
 });
 after('artisan:optimize', 'build');
-
-task('queue:restart', function () {
-    run('cd {{release_path}} && php artisan queue:restart');
-});
-after('deploy:symlink', 'queue:restart');
 
 after('deploy:failed', 'deploy:unlock');
 before('deploy:symlink', 'artisan:migrate');
